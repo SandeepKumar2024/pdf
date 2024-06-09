@@ -1,5 +1,6 @@
 import { db } from '@/db'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
+import { Pinecone } from '@pinecone-database/pinecone';
 import {
   createUploadthing,
   type FileRouter,
@@ -11,6 +12,7 @@ import { PineconeStore } from 'langchain/vectorstores/pinecone'
 import { getPineconeClient } from '@/lib/pinecone'
 import { getUserSubscriptionPlan } from '@/lib/stripe'
 import { PLANS } from '@/config/stripe'
+
 
 const f = createUploadthing()
 
@@ -92,6 +94,7 @@ const onUploadComplete = async ({
       })
     }
 
+    
     // vectorize and index entire document
     const pinecone = await getPineconeClient()
     const pineconeIndex = pinecone.Index('pdf')
